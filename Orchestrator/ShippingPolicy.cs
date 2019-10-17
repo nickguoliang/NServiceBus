@@ -38,7 +38,7 @@ namespace Shipping
         {
             if (Data.IsOrderPlaced && Data.IsOrderBilled)
             {
-                await context.SendLocal(new ShipOrder() { OrderId=Data.OrderId});
+                await context.Send(new ShipOrder() { OrderId=Data.OrderId});
                 MarkAsComplete();
             }
         }

@@ -1,10 +1,9 @@
 ﻿using Messages;
 using NServiceBus;
-using NServiceBus.Features;
 using System;
 using System.Threading.Tasks;
 
-namespace Shipping
+namespace Orchestrator
 {
     class Program
     {
@@ -14,10 +13,12 @@ namespace Shipping
         }
         static async Task AsyncMain()
         {
-            Console.Title = "Shipping";
-            var endpointConfiguation = new EndpointConfiguration(endpointName: "Shipping");
+            Console.Title = "Orchestrator";
+            var endpointConfiguation = new EndpointConfiguration(endpointName: "Orchestrator");
             var transport = endpointConfiguation.UseTransport<LearningTransport>();
             var persistence = endpointConfiguation.UsePersistence<LearningPersistence>();
+            var routing = transport.Routing();
+            routing.RouteToEndpoint(typeof(ShipOrder), "Shipping");
             var endpointInstance = await Endpoint.Start(endpointConfiguation).ConfigureAwait(false);
             Console.WriteLine("Please enter to exit");
             Console.ReadLine();

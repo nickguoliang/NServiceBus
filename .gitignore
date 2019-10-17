@@ -1,0 +1,15 @@
+ClientUI/ClientUI/obj/
+Messages/bin/Debug/
+Messages/obj/
+Orchestrator/bin/
+Orchestrator/obj/
+Order/bin/
+Order/obj/
+OrderApi/bin/
+OrderApi/obj/
+Shipping/bin/
+Shipping/obj/
+Billing/obj/
+Billing/bin/
+.vs/
+.learningtransport/

@@ -14,6 +14,15 @@ namespace OrderApi.Controllers
     [Produces("application/json")]
     public class OrderController : Controller
     {
+        private IEndpointInstance endpointInstance;
+        /// <summary>
+        /// constructor injection
+        /// </summary>
+        /// <param name="endpointInstance"></param>
+        public OrderController(IEndpointInstance endpointInstance)
+        {
+            this.endpointInstance = endpointInstance;
+        }
         /// <summary>
         /// submit sorder
         /// </summary>
@@ -22,11 +31,6 @@ namespace OrderApi.Controllers
         [HttpPost("submitOrder")]
         public ActionResult<ApiResult> submitOrder([FromBody] PlaceOrder model)
         {
-            var endpointConfiguration = new EndpointConfiguration(endpointName: "OrderAPI");
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
-            var routing = transport.Routing();
-            routing.RouteToEndpoint(typeof(PlaceOrder), "Order");
-            IEndpointInstance endpointInstance = Endpoint.Start(endpointConfiguration).Result;
             var command = new PlaceOrder()
             {
                 OrderId = System.Guid.NewGuid().ToString(),
